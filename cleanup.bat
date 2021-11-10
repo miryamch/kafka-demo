@@ -1,7 +1,7 @@
 @ECHO OFF
 ECHO **** Stopping Kafka Demo ****
 call kafka-topics --bootstrap-server kafka:9092 --delete --if-exists --topic demo-topic;
-::fixme unknown shorthand flag: 'a' in -aq)
-docker stop $(docker ps -aq)
-docker rm $(docker ps -aq)
+for /f %%i in ('docker ps -aq') do set CONTAINER_IDS=%%i
+docker stop %CONTAINER_IDS%
+docker rm %CONTAINER_IDS%
 ECHO cleanup complete
